@@ -1,0 +1,22 @@
+{
+    "name": "pizzaroulette2",
+    "version": "1.0.0",
+    "description": "A Simple libary for interacting with the Dominos Pizza API.",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "docs": "jsdoc2md src/index.js > DOCS.md"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "node-fetch": "^2.6.0"
+    },
+    "devDependencies": {
+        "eslint": "^6.1.0",
+        "eslint-plugin-react": "^7.14.3",
+        "eslint-plugin-vue": "^5.2.3",
+        "jsdoc-to-markdown": "^5.0.0"
+    }
+}

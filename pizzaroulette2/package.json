@@ -1,22 +1,30 @@
 {
     "name": "pizzaroulette2",
-    "version": "1.0.0",
-    "description": "A Simple libary for interacting with the Dominos Pizza API.",
-    "main": "index.js",
+    "version": "1.0.2",
+    "description": "A simple library for interacting with the Dominos Pizza API.",
+    "main": "src/index.js",
     "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1",
         "docs": "jsdoc2md src/index.js > DOCS.md"
     },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/xCE3/pizzaroulette2.git"
+    },
     "keywords": [],
-    "author": "",
-    "license": "ISC",
+    "author": "CJ R. <cj@null.computer> (https://w3cj.now.sh)",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/xCE3/pizzaroulette2/issues"
+    },
+    "homepage": "https://github.com/xCE3/pizzaroulette2#readme",
     "dependencies": {
-        "node-fetch": "^2.6.0"
+        "node-fetch": "^2.3.0"
     },
     "devDependencies": {
-        "eslint": "^6.1.0",
-        "eslint-plugin-react": "^7.14.3",
-        "eslint-plugin-vue": "^5.2.3",
-        "jsdoc-to-markdown": "^5.0.0"
+        "eslint": "^5.13.0",
+        "eslint-config-airbnb-base": "^13.1.0",
+        "eslint-plugin-import": "^2.16.0",
+        "jsdoc": "^3.5.5",
+        "jsdoc-to-markdown": "^4.0.1"
     }
 }

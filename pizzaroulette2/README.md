@@ -1,20 +1,21 @@
-## Pizza Roulette API
+## 🍕 Pizza Roulette API 🍕
 
-A Simple libary for interacting with the Dominos Pizza API.
+A simple library for interacting with the Dominos Pizza API.
 
 ## Install
 
 ```sh
-npm i pizzaroulette-api
+npm i pizzaroulette2
 ```
 
 ## DOCS
 
-See [DOCS](./DOCS.md) for all avaliable methods and desctiptions of each
+See [DOCS](./DOCS.md) for all available methods and descriptions of each.
 
 ## Example Usage
 
-const pizzaroulette2 = require('pizzaroulette-api');
+```js
+const pizzaroulette2 = require('pizzaroulette2');
 
 (async () => {
   const cityRegionOrPostalCode = 'Denver, CO, 80202';
@@ -153,3 +154,4 @@ const pizzaroulette2 = require('pizzaroulette-api');
   const orderStatus = await pizzaroulette2.trackOrder(storeResult.StoreID, orderID);
   console.log(orderStatus);
 })();
+```

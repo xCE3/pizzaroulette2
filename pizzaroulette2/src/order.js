@@ -1,42 +1,43 @@
-const pizzaroulette2 = require('./index');
+const ezPizzaAPI = require('./index');
 
 (async() => {
-    const cityRegionOrPostalCode = 'Chicago, IL, 60637';
-    const streetAddress = '6144 S Cottage Grove Ave';
+    const cityRegionOrPostalCode = 'Chicago, IL, 60628';
+    const streetAddress = '12419 S Lowe Ave';
+    const StoreID = '2972';
 
     // Get a full list of stores near an address
-    const storesResult = await pizzaroulette2
-        .getStoresNearAddress(pizzaroulette2.orderTypes.Carryout, cityRegionOrPostalCode);
+    const storesResult = await ezPizzaAPI
+        .getStoresNearAddress(ezPizzaAPI.orderTypes.Carryout, cityRegionOrPostalCode);
 
     // Get basic info about nearest delivery store to address
-    const storeResult = await pizzaroulette2
+    const storeResult = await ezPizzaAPI
         .getNearestDeliveryStore(cityRegionOrPostalCode, streetAddress);
 
     // Get full info about specified store
-    const storeInfo = await pizzaroulette2
+    const storeInfo = await ezPizzaAPI
         .getStoreInfo(storeResult.StoreID);
 
     // Get full menu for the specified store
-    const storeMenu = await pizzaroulette2
+    const storeMenu = await ezPizzaAPI
         .getStoreMenu(storeResult.StoreID);
 
     const couponId = '9193';
     // Get info for the specified store and coupon
     // Coupon ID found in the above menu request
-    const coupon = await pizzaroulette2
+    const coupon = await ezPizzaAPI
         .getStoreCoupon(storeResult.StoreID, couponId);
 
     // Create an Order with the following properties
     const order = {
         Order: {
             Address: { // <- Update this
-                Street: '6144 S Cottage Grove Ave.',
+                Street: '12419 S Lowe Ave.',
                 City: 'Chicago',
                 Region: 'IL',
-                PostalCode: '60637',
+                PostalCode: '60628',
                 Type: 'House',
-                StreetName: 'S Cottage Grove Ave',
-                StreetNumber: '6144',
+                StreetName: 'S Lowe Ave',
+                StreetNumber: '12419',
             },
             // Specify any coupons here, leave empty if not using a coupon
             Coupons: [{
@@ -52,14 +53,30 @@ const pizzaroulette2 = require('./index');
             OrderMethod: 'Web',
             OrderTaker: null,
             Payments: [],
-            Phone: '7739830983', // <- Update this
+            Phone: '7739830873', // <- Update this
             PhonePrefix: '1', // <- Update this
             // An array of products. Find the corresponding code and available options in the menu response.
             Products: [{
-                Code: 'PS_14SCREEN',
+                Code: '12THIN',
                 Qty: 1,
                 isNew: true,
-                Options: {},
+                Options: {
+                    X: {
+                        '1/1': '1',
+                    },
+                    C: {
+                        '1/1': '1',
+                    },
+                    Sa: {
+                        '1/1': '1',
+                    },
+                    J: {
+                        '1/2': '1',
+                    },
+                    Z: {
+                        '2/2': '1',
+                    },
+                },
             }, {
                 Code: 'MARBRWNE',
                 Qty: 1,
@@ -71,7 +88,7 @@ const pizzaroulette2 = require('./index');
                 Qty: 1,
                 isNew: true,
             }],
-            ServiceMethod: pizzaroulette2.orderTypes.Delivery, // <- Update this can be Delivery or Carryout
+            ServiceMethod: ezPizzaAPI.orderTypes.Carryout, // <- Update this can be Delivery or Carryout
             SourceOrganizationURI: 'order.dominos.com',
             StoreID: storeResult.StoreID,
             Tags: {},
@@ -82,31 +99,31 @@ const pizzaroulette2 = require('./index');
         },
     };
 
-    const orderValid = await pizzaroulette2.validateOrder(order);
+    const orderValid = await ezPizzaAPI.validateOrder(order);
     order.Order.OrderID = orderValid.Order.OrderID; // get the generated orderID from the response
 
-    const pricedOrder = await pizzaroulette2.priceOrder(order);
+    const pricedOrder = await ezPizzaAPI.priceOrder(order);
     const Amount = pricedOrder.Order.Amounts.Customer; // get total amount for order
 
     // specify the amount and credit card info OR see how to use cash on delivery below
-    order.Order.Payments.push({
-        Amount,
-        Type: 'CreditCard',
-        Number: '​4242424242424242',
-        CardType: 'VISA',
-        Expiration: '0424',
-        SecurityCode: '424',
-        PostalCode: '80202',
-    });
-
-    // OR 
-    // specify the amount type as Cash
     // order.Order.Payments.push({
-    // Amount,
-    // Type: 'Cash', // <- Pay cash on delivery
+    //     Amount,
+    //     Type: 'CreditCard',
+    //     Number: '​4242424242424242',
+    //     CardType: 'VISA',
+    //     Expiration: '0424',
+    //     SecurityCode: '424',
+    //     PostalCode: '80202',
     // });
 
-    const placedOrder = await pizzaroulette2.placeOrder(order);
+    // OR
+    // specify the amount type as Cash
+    order.Order.Payments.push({
+        Amount,
+        Type: 'Cash', // <- Pay cash on delivery
+    });
+
+    const placedOrder = await ezPizzaAPI.placeOrder(order);
     // For a succesful order, look for:
     // StoreOrderID
     // EmailHash
@@ -118,6 +135,6 @@ const pizzaroulette2 = require('./index');
 
     // Getting the orderID may vary. Validate by looking at the placedOrder response
     const orderID = placedOrder.Order.StoreOrderID.split('#')[1]; // <- This might change depending on store
-    const orderStatus = await pizzaroulette2.trackOrder(storeResult.StoreID, orderID);
+    const orderStatus = await ezPizzaAPI.trackOrder(storeResult.StoreID, orderID);
     console.log(orderStatus);
 })();

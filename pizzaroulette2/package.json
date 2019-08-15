@@ -18,6 +18,7 @@
     },
     "homepage": "https://github.com/xCE3/pizzaroulette2#readme",
     "dependencies": {
+        "ez-pizza-api": "^1.0.2",
         "node-fetch": "^2.3.0"
     },
     "devDependencies": {

@@ -1,6 +1,6 @@
 /**
- * pizzaroulette2 Module
- * @module pizzaroulette2
+ * ez-pizza-api Module
+ * @module ez-pizza-api
  */
 
 const fetch = require('node-fetch');

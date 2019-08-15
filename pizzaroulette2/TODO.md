@@ -7,7 +7,7 @@ Decipher the undocumented API on the dominos website to build a library that wil
 * https://github.com/RIAEvangelist/node-dominos-pizza-api
 * https://github.com/gamagori/pizzapi
 * Jarvis Johnson - I Wrote A Program To Order Pizza
-* https://www.youtube.com/watch?v=Nxu6GlDleqA
+  * https://www.youtube.com/watch?v=Nxu6GlDleqA
 
 ## What API will we use?
 

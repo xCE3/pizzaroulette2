@@ -1,0 +1,66 @@
+# Import the necessary libraries
+import requests
+import json
+
+# Set the base URL for the Domino's API
+base_url = "https://order.dominos.com/power"
+
+# Set the parameters for the API call
+params = {
+    "type": "menu",
+    "st": "MA",
+    "c": "Boston",
+    "zip": "02135"
+}
+
+# Make the API call
+response = requests.get(base_url, params=params)
+
+# Parse the response as JSON
+data = response.json()
+
+# Get the menu items from the response
+menu_items = data["result"]["items"]
+
+# Loop through the menu items and print their names and prices
+for item in menu_items:
+    name = item["name"]
+    price = item["price"]
+    print(f"{name}: ${price:.2f}")
+
+# Select a menu item to order
+selected_item = menu_items[0]
+
+# Set the order parameters
+order_params = {
+    "customer": {
+        "firstName": "John",
+        "lastName": "Doe",
+        "phone": "555-555-5555",
+        "email": "johndoe@example.com",
+        "address": {
+            "street": "123 Main St",
+            "city": "Boston",
+            "region": "MA",
+            "postalCode": "02135"
+        }
+    },
+    "order": {
+        "type": "delivery",
+        "items": [
+            {
+                "code": selected_item["code"],
+                "quantity": 1
+            }
+        ]
+    }
+}
+
+# Make the order
+order_response = requests.post(base_url, json=order_params)
+
+# Print the order details
+order_data = order_response.json()
+order_number = order_data["result"]["order"]["id"]
+total_price = order_data["result"]["order"]["total"]
+print(f"Order placed successfully! Order number: {order_number} Total price: ${total_price:.2f}")
